@@ -206,6 +206,20 @@ postgresql_users:
     db: "{{programs_postgres_db}}"
     login_user: "{{programs_service_postgres_username}}"
     priv: "ALL"
+  - name: "{{ enc_postgres_user }}"
+    login_host: "{{ enc_postgres_host }}"
+    login_password: "{{ enc_postgres_password }}"
+    password: "{{ enc_postgres_password }}" # encrypted password
+    db: "{{ enc_postgres_database }}"
+    login_user: "{{ enc_postgres_user }}"
+    priv: "ALL"
+  - name: "{{ opensaber_postgres_username }}"
+    login_host: "{{ opensaber_postgres_host }}"
+    login_password: "{{ opensaber_postgres_password }}"
+    password: "{{ opensaber_postgres_password }}" # encrypted password
+    db: "{{ opensaber_postgres_database }}"
+    login_user: "{{ opensaber_postgres_username }}"
+    priv: "ALL"
   
 
 postgresql_databases:
@@ -219,6 +233,16 @@ postgresql_databases:
     login_password: "{{ kong_postgres_password }}"
     owner: "{{ kong_postgres_user }}"
     login_user: "{{ kong_postgres_user }}"
+  - name: "{{ enc_postgres_database }}"
+    login_host: "{{ enc_postgres_host }}"
+    login_password: "{{ enc_postgres_password }}"
+    owner: "{{ enc_postgres_user }}"
+    login_user: "{{ enc_postgres_user }}"
+  - name: "{{ opensaber_postgres_database }}"
+    login_host: "{{ opensaber_postgres_host }}"
+    login_password: "{{ opensaber_postgres_password }}"
+    owner: "{{ opensaber_postgres_username }}"
+    login_user: "{{ opensaber_postgres_username }}"
 
 
 sunbird_content_url:
@@ -278,3 +302,29 @@ cloud_storage_esbackup_bucketname: "elasticsearch-snapshots"
 cloud_storage_neo4jbackup_bucketname: "neo4j-backup"
 cloud_storage_redisbackup_bucketname: "redis-backup"
 cloud_storage_artifacts_bucketname: "{{ artifacts_container }}"
+
+# Uncomment the variable based on your cloud provider (as a default we have kept Azure variable uncommented)
+# GCP
+# cloud_storage_url: https://storage.googleapis.com
+# AWS
+# cloud_storage_url: "https://s3.{{ cloud_public_storage_region }}.amazonaws.com"
+# Azure
+#cloud_storage_url: "https://{{ cloud_public_storage_accountname }}.blob.core.windows.net"
+# OCI - TODO - add to template
+#cloud_storage_url: "https://objectstorage.{{ cloud_public_storage_region }}.oraclecloud.com"
+cloud_storage_url: "https://{{ cloud_public_storage_namespace }}.compat.objectstorage.{{ cloud_public_storage_region }}.oraclecloud.com"
+
+# Building block vars
+cloud_storage_base_url: "{{ cloud_storage_url }}"
+cloudstorage_base_path: "{{ cloud_storage_url }}"
+valid_cloudstorage_base_urls: '["{{cloud_storage_url}}"]'
+cloudstorage_relative_path_prefix: "CONTENT_STORAGE_BASE_PATH"
+cloudstorage_replace_absolute_path: "true"
+sunbird_cloud_storage_urls: "{{ cloud_storage_url }}"
+
+# provide the s3 compatible endpoint
+# for AWS
+# cloud_private_storage_account_endpoint: "https://s3.{{ cloud_public_storage_region }}.amazonaws.com"
+# for OCI
+#cloud_private_storage_account_endpoint: "https://<oci_namespace>.compat.objectstorage.{{cloud_public_storage_region}}.oraclecloud.com"
+cloud_private_storage_account_endpoint: "{{ cloud_public_storage_endpoint }}" # Leave Blank for Azure

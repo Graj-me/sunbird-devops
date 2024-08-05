@@ -274,6 +274,8 @@ plugin_media_base_url: "https://{{domain_name}}"
 # cloud_storage_url: # aws storage url to be updated
 # Azure
 #cloud_storage_url: "https://{{ sunbird_public_storage_account_name }}.blob.core.windows.net"
+#for oci
+#cloud_storage_url: https://{{ cloud_public_storage_namespace }}.compat.objectstorage.{{ cloud_public_storage_region }}.oraclecloud.com
 
 
 # CSP vars
@@ -310,3 +312,92 @@ cloud_storage_esbackup_bucketname: "elasticsearch-snapshots"
 cloud_storage_neo4jbackup_bucketname: "neo4j-backup"
 cloud_storage_redisbackup_bucketname: "redis-backup"
 cloud_storage_artifacts_bucketname: "{{ artifacts_container }}"
+
+sunbird_cassandra_replication_strategy: '{"class":"NetworkTopologyStrategy","datacenter1":1}' # If using cluster give this value and choose datacenter and replication factor as required '{"class":"NetworkTopologyStrategy","datacenter1":2}' if not using cluster, leave this variable commented
+
+#oci media service specific - TODO add to template
+oci_media_region: "{{ cloud_public_storage_region }}"
+oci_media_compartment: ocid1.compartment.oc1..aaaaaaaaqr55d5bghpxw6hnejd3hg6hbxx7rjwjnlnwziizi3c5ejwtlcq5q
+oci_media_namespace: "{{ cloud_public_storage_namespace }}"
+oci_media_source_bucket: "{{ cloud_storage_content_bucketname }}" # ex values ??
+oci_media_target_bucket: "{{ cloud_storage_content_bucketname }}" # ex values
+oci_media_prefix_input: "" # ex values ??
+oci_media_dist_channel_id: ""
+oci_media_work_flow_id: ""
+oci_media_stream_config_id: ""
+oci_media_gateway_domain: ""
+csp_migrator_router_parallelism: ""
+
+# Building block vars
+cloud_storage_base_url: "{{ cloud_storage_url }}"
+cloudstorage_base_path: "{{ cloud_storage_url }}"
+valid_cloudstorage_base_urls: '["{{cloud_storage_url}}"]'
+cloudstorage_relative_path_prefix: "CONTENT_STORAGE_BASE_PATH"
+portal_cloud_storage_url: {{ cloud_storage_url }}
+cloudstorage_replace_absolute_path: 'true'
+
+cassandra_keyspace_prefix: dock
+content_keyspace_name: dock_content_store     #content keysapce
+hierarchy_keyspace_name: dock_hierarchy_store #hirarchy keyspace
+question_keyspace_name: dock_question_store   #question keyspace
+upstream_url: "{{ cloud_storage_url }}/dock-content"
+
+#dock based url
+#vdn_domain_name: "ckoci.sunbirded.org"
+#source_base_url: "{{proto}}://{{vdn_domain_name}}/api"
+
+#dock report issue in spark # TODO add to template ?
+dockdataproducts: "true"
+sunbird_api_auth_token: ""
+postgres:                                                                                          #### geetha
+  db_url: "{{ groups['postgres'][0] }}"
+  db_username: sunbirdstaging@staging-pg11 #analytics
+  db_name: sunbird_programs
+  db_password: "{{dp_vault_pgdb_password}}"
+  db_table_name: ntpstaging_consumer_channel_mapping
+  db_port: 5432
+  db_admin_user: sunbirdstaging@staging-pg11
+  db_admin_password: "{{dp_vault_pgdb_admin_password}}"
+
+dp_vault_data_exhaust_token:      # slack api token
+data_exhaust_webhook_url: ""     # Slack webhook url
+data_exhaust_Channel: ""
+data_exhaust_name: "datapipeline-monitoring"  # Slack notification name
+
+# Azure media streaming service
+stream_base_url: "" # Media service streaming url
+media_service_azure_tenant: "" # value have to be defined
+media_service_azure_subscription_id: ""
+media_service_azure_account_name: ""
+media_service_azure_resource_group_name: ""
+media_service_azure_token_client_key: ""
+media_service_azure_token_client_secret: ""
+
+#secrets
+dp_vault_druid_postgress_pass: ""           # postgres password for druid db
+
+dp_vault_pgdb_admin_password: ""            # postgres password
+dp_vault_pgdb_password: ""                  # postgres password
+core_vault_sunbird_encryption_key:    # copy value from variable core_vault_sunbird_encryption_key from core secrets.yml
+
+# Spark version overide
+spark_version: 3.1.3
+
+#etldruidcontentindexer
+cloud_storage:
+  container: "telemetry-data-store" # Container is different in all env so override this.
+  object_key: "druid-content-snapshot/vdn-snapshot.txt"
+  provider: "{{ cloud_service_provider }}"
+  account_name: "{{cloud_public_storage_accountname}}"
+  account_key: "{{cloud_public_storage_secret}}"
+  account_endpoint: "{{ cloud_public_storage_endpoint }}"
+druid:
+  coordinator_host: "{{ groups['rollup-coordinator'][0] | default(groups['raw-coordinator'][0]) }}"
+  data_source: "vdn-content-model-snapshot"
+  ingestion_spec_path: "{{ content_snapshot_jar_path }}/etl-jobs-1.0/druid_models/vdn_content_index_batch.json"
+
+#add to templatelater and we need to add to staging datapipeline once funnel report works #delete comment once done
+core_private_ingressgateway_ip:  #private ingress IP of sunbirded 
+
+
+cassandra_hierarchy_store_keyspace: "" # related to course-progress-report  #it should be added to datapipeline also this is pointed to ed hirarchy store keyspace
