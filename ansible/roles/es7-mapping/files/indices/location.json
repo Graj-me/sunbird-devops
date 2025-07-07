@@ -34,8 +34,7 @@
                     },
                     "cs_search_analyzer": {
                         "filter": [
-                            "lowercase",
-                            "standard"
+                            "lowercase" 
                         ],
                         "type": "custom",
                         "tokenizer": "standard"
@@ -45,115 +44,117 @@
         }
     },
     "mappings": {
-        "dynamic": false,
-        "properties": {
-            "all_fields": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower"
-                    }
+        
+            "dynamic": false,
+            "properties": {
+                "all_fields": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower"
+                        }
+                    },
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer"
                 },
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer"
-            },
-            "code": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
+                "code": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
                 },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
-            },
-            "id": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
+                "id": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
                 },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
-            },
-            "name": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
+                "name": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
                 },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
-            },
-            "parentId": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
+                "parentId": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
                 },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
-            },
-            "type": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
+                "type": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
                 },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
-            },
-            "value": {
-                "type": "text",
-                "fields": {
-                    "raw": {
-                        "type": "text",
-                        "analyzer": "keylower",
-                        "fielddata": true
-                    }
-                },
-                "copy_to": [
-                    "all_fields"
-                ],
-                "analyzer": "cs_index_analyzer",
-                "search_analyzer": "cs_search_analyzer",
-                "fielddata": true
+                "value": {
+                    "type": "text",
+                    "fields": {
+                        "raw": {
+                            "type": "text",
+                            "analyzer": "keylower",
+                            "fielddata": true
+                        }
+                    },
+                    "copy_to": [
+                        "all_fields"
+                    ],
+                    "analyzer": "cs_index_analyzer",
+                    "search_analyzer": "cs_search_analyzer",
+                    "fielddata": true
+                }
             }
-        }
+        
     }
 }
