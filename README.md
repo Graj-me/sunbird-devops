@@ -1,4 +1,4 @@
-# sunbird-devops
+# sunbird-devops test
 
 This repository contains the information and references needed to run [Sunbird](http://open-sunbird.org/) in a Production environment. The deployment design and software choices taken have been motivated with a need to run Sunbird in a highly available, reliable and scaleable setup. Higher levels of automation have been favored. The stack is meant to be extensible and parts of it are swappable to suit your deployment environments. Pull Requests are invited to add capability and variety to the deployment choices.
 
