@@ -11,7 +11,7 @@
 #------------------------------------------------------#
 
 #Basic
-
+code: AKIA1234567890ABCDE
 env:                                            # The environment type being setup. Typical examples are dev, test, qa, staging, performance, preprod, production etc.
 implementation_name:                            # The name of your sunbird implementation. As a best practice, use the org name that is in the domain (dns) name that you are going to use for this sunbird instance 
 ssh_ansible_user:                               # The SSH user name that has sudo access to all servers. If you have followed the user creation sample in the pre-requisites, then this would be sunbird
